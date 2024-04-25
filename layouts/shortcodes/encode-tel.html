@@ -1,0 +1,11 @@
+{{- $params := dict }}
+{{- if .IsNamedParams }}
+  {{- $params = .Params }}
+{{- else }}
+  {{- $params = dict
+    "target" (.Get 0)
+    "text" (default "" (.Get 1))
+  }}
+{{- end }}
+{{- $params = merge $params (dict "protocol" "tel") }}
+{{ partial "encoder/link" $params }}

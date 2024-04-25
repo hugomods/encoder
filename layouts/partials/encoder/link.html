@@ -1,0 +1,19 @@
+
+{{- $protocol := .protocol }}
+{{- $target := .target }}
+{{- $text := .text }}
+{{- if not $text }}
+  {{- $text = partial "ascii/str2html" $target | safeHTML }}
+{{- end }}
+{{- $url := printf "%s:%s" $protocol $target | partial "ascii/str2html" }}
+{{- $attrsFilter := slice "protocol" "target" "text" }}
+<a
+  {{ printf `href="%s"` $url | safeHTMLAttr }}
+  {{ range $k, $v := . }}
+    {{- if or (hasPrefix $k "_") (in $attrsFilter $k) -}}
+      {{ continue -}}
+    {{- end -}}
+    {{ printf `%s="%s"` $k $v | safeHTMLAttr }}
+  {{ end -}}>
+  {{- $text -}}
+</a>

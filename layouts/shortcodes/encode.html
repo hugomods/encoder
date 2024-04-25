@@ -1,0 +1,7 @@
+{{- $text := "" }}
+{{- if .IsNamedParams }}
+  {{- $text = .Get "text" }}
+{{- else }}
+  {{- $text = .Get 0 }}
+{{- end }}
+{{ partial "encoder/encode" $text | safeHTML }}
