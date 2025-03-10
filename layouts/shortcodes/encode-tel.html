@@ -8,4 +8,4 @@
   }}
 {{- end }}
 {{- $params = merge $params (dict "protocol" "tel") }}
-{{ partial "encoder/link" $params }}
+{{- partial "encoder/link" $params -}}
